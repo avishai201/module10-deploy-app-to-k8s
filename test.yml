@@ -1,0 +1,39 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: hello-world
+  labels:
+    app : hello-world
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      project: hello-world
+  template:
+    metadata:
+      labels:
+        project: hello-world   # Service will look for those PODS Labels!!!
+    spec:
+      containers:
+        - name : hello-world
+          image: 623312872656.dkr.ecr.eu-central-1.amazonaws.com/hello_world:49
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-world
+  labels:
+    env  : prod
+    owner: Avishai
+spec:
+  selector:
+    project: hello-world    # Selecting PODS with those Labels
+  ports:
+    - name      : app-listener
+      protocol  : TCP
+      port      : 80  # Port on Load Balancer
+      targetPort: 8081  # Port on POD
+  type: LoadBalancer
