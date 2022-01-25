@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Pull and Push image to ECR') {
             steps {
-                sh 'ansible-playbook -i hosts pull_and_push.yml'
+                sh 'ansible-playbook -i hosts.ini pull_and_push.yml'
             }
         }
         stage('deploy the app from module 6') {
