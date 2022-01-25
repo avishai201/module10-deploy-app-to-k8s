@@ -5,7 +5,7 @@ pipeline {
      }
    }
      parameters {
-       string(name: 'Image_Tag', description: "Please insert image tag you won't upload to ECR")
+       string(name: 'Image_Tag', description: "Please insert image tag you want upload to ECR")
        }
     stages {
         stage('Pull and Push image to ECR') {
