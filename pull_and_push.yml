@@ -9,13 +9,13 @@
         reauthorize: yes
 
     - name: pull image from nexus manually
-      shell: docker pull 10.10.10.226:8123/repository/docker-hosted/helloworld:37
+      shell: docker pull 10.10.10.226:8123/repository/docker-hosted/helloworld:${Image_Tag}
 
     - name: Retrieve an authentication token and authenticate your Docker client to your registry
       shell: aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 623312872656.dkr.ecr.eu-central-1.amazonaws.com
 
     - name: Tag image
-      shell: docker tag 10.10.10.226:8123/repository/docker-hosted/helloworld:37 623312872656.dkr.ecr.eu-central-1.amazonaws.com/hello_world:37
+      shell: docker tag 10.10.10.226:8123/repository/docker-hosted/helloworld:37 623312872656.dkr.ecr.eu-central-1.amazonaws.com/hello_world:${Image_Tag}
 
     - name: Push image to AWS repository
-      shell: docker push 623312872656.dkr.ecr.eu-central-1.amazonaws.com/hello_world:37
+      shell: docker push 623312872656.dkr.ecr.eu-central-1.amazonaws.com/hello_world:${Image_Tag}
